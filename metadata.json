@@ -1,0 +1,6 @@
+{
+  "name": "Classic Tetris",
+  "description": "Inner Peace Mode Tetris featuring meditative ambient generative soundscape, translucent wax casing pieces, and crispy Wax-Shatter ASMR effects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

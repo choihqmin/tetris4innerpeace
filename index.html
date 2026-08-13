@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>INNER PEACE MODE - Wax Shatter ASMR</title>
+  <style>
+    :root {
+      --bg-color: #1e1b2e;
+      --card-bg: rgba(38, 33, 58, 0.78);
+      --card-border: rgba(216, 187, 255, 0.28);
+      --card-glow: rgba(216, 187, 255, 0.08);
+      --text-main: #f5efff;
+      --text-muted: #b3a8cf;
+      --accent-pink: #ff99c8;
+      --accent-cyan: #8eecf5;
+      --accent-violet: #d8bbff;
+      --accent-peach: #fbc4ab;
+      --accent-yellow: #fcf6bd;
+      --accent-mint: #b9fbc0;
+      --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(216, 187, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(142, 236, 245, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255, 153, 200, 0.10) 0%, transparent 50%),
+        linear-gradient(135deg, #181528 0%, #1e1b2e 50%, #2b2740 100%);
+      background-size: 100% 100%;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ff99c8 0%, #d8bbff 50%, #8eecf5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(216, 187, 255, 0.45);
+    }
+
+    .subtitle {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .sound-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--accent-pink);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .sound-btn:hover {
+      background: rgba(255, 153, 200, 0.2);
+      transform: scale(1.08);
+    }
+
+    .game-container {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 140px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: 0 8px 32px rgba(15, 12, 28, 0.6), inset 0 0 12px var(--card-glow);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .card-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      font-family: 'Consolas', 'Courier New', monospace;
+      text-shadow: 0 0 10px rgba(142, 236, 245, 0.5);
+      letter-spacing: 1px;
+    }
+
+    canvas.preview-canvas {
+      background: rgba(22, 18, 36, 0.65);
+      border-radius: 12px;
+      border: 1px solid rgba(216, 187, 255, 0.2);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .zone-card {
+      border-color: rgba(252, 246, 189, 0.45);
+      box-shadow: 0 8px 32px rgba(15, 12, 28, 0.6), inset 0 0 12px rgba(252, 246, 189, 0.15);
+      width: 100%;
+    }
+
+    .zone-meter-container {
+      width: 100%;
+      height: 18px;
+      background: rgba(20, 16, 32, 0.6);
+      border: 1px solid rgba(252, 246, 189, 0.4);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      margin: 2px 0 8px 0;
+    }
+
+    .zone-meter-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff99c8, #fcf6bd, #8eecf5);
+      box-shadow: 0 0 12px rgba(252, 246, 189, 0.8);
+      transition: width 0.25s ease-out;
+      border-radius: 10px;
+    }
+
+    .zone-meter-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 900;
+      color: #2b2740;
+      text-shadow: 0 0 2px #fff;
+      letter-spacing: 1px;
+    }
+
+    .zone-btn-hud {
+      width: 100%;
+      padding: 6px 4px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      border-radius: 10px;
+      border: 1px solid rgba(252, 246, 189, 0.5);
+      background: rgba(252, 246, 189, 0.12);
+      color: #fcf6bd;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .zone-btn-hud:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      border-color: var(--card-border);
+      color: var(--text-muted);
+      background: transparent;
+    }
+
+    .zone-btn-hud.ready {
+      background: linear-gradient(135deg, #ff99c8, #fcf6bd);
+      color: #1e1b2e;
+      box-shadow: 0 0 18px rgba(255, 153, 200, 0.8);
+      animation: pulseZone 1s infinite alternate;
+    }
+
+    .board-frame {
+      position: relative;
+      background: var(--card-bg);
+      border: 2px solid rgba(216, 187, 255, 0.35);
+      border-radius: 20px;
+      padding: 6px;
+      box-shadow: 0 16px 48px rgba(10, 8, 20, 0.8), 0 0 30px rgba(216, 187, 255, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .board-frame.zone-active {
+      border-color: #fcf6bd;
+      box-shadow: 0 0 50px rgba(252, 246, 189, 0.6), inset 0 0 20px rgba(252, 246, 189, 0.3);
+      animation: zoneBorderPulse 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes zoneBorderPulse {
+      0% { box-shadow: 0 0 30px rgba(252, 246, 189, 0.5), inset 0 0 15px rgba(252, 246, 189, 0.2); }
+      100% { box-shadow: 0 0 60px rgba(216, 187, 255, 0.8), inset 0 0 25px rgba(252, 246, 189, 0.4); }
+    }
+
+    @keyframes pulseZone {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 153, 200, 0.6); }
+      100% { transform: scale(1.04); box-shadow: 0 0 22px rgba(255, 153, 200, 1); }
+    }
+
+    #board {
+      display: block;
+      background: #141122;
+      border-radius: 14px;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 6px;
+      background: rgba(28, 23, 44, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 153, 200, 0.35);
+      box-shadow: inset 0 0 30px rgba(255, 153, 200, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    .overlay h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: #ffffff;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ff99c8, #d8bbff, #8eecf5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(216, 187, 255, 0.5);
+    }
+
+    .overlay p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff99c8, #d8bbff);
+      border: none;
+      color: #1e1b2e;
+      padding: 12px 28px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 153, 200, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 30px rgba(255, 153, 200, 0.7);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .controls-list {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .control-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .key-badge {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-family: monospace;
+      color: #ffffff;
+      font-size: 0.62rem;
+    }
+
+    .touch-controls {
+      display: none;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 360px;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .touch-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .t-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: background 0.1s;
+    }
+
+    .t-btn:active {
+      background: rgba(255, 153, 200, 0.3);
+      border-color: var(--accent-pink);
+    }
+
+    .t-btn-wide {
+      flex: 2;
+      background: linear-gradient(135deg, rgba(255, 153, 200, 0.25), rgba(216, 187, 255, 0.25));
+    }
+
+    @media (max-width: 680px) {
+      .game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .panel {
+        width: 100%;
+        max-width: 312px;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .panel-left { order: 2; }
+      .panel-right { order: 1; }
+
+      .panel .card {
+        flex: 1;
+        padding: 6px;
+      }
+
+      .controls-card { display: none; }
+      .touch-controls { display: flex; }
+
+      header { margin-bottom: 8px; }
+      h1 { font-size: 1.5rem; letter-spacing: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title-container">
+      <h1>INNER PEACE MODE</h1>
+      <button id="soundToggle" class="sound-btn" title="Toggle Sound">🔊</button>
+    </div>
+    <div class="subtitle">Wax-Shatter ASMR • SRS • Inner Peace Zone</div>
+  </header>
+
+  <div class="game-container">
+    <!-- Left Panel (Hold Piece, Zone Meter & Controls) -->
+    <div class="panel panel-left">
+      <div class="card">
+        <div class="card-title">Hold</div>
+        <canvas id="holdCanvas" class="preview-canvas" width="90" height="90"></canvas>
+      </div>
+
+      <div class="card zone-card" id="zoneCard">
+        <div class="card-title">Zone Meter</div>
+        <div class="zone-meter-container">
+          <div id="zoneMeterBar" class="zone-meter-bar"></div>
+          <div id="zoneMeterText" class="zone-meter-text">0%</div>
+        </div>
+        <button id="zoneTriggerBtn" class="zone-btn-hud" disabled>ZONE [ENTER]</button>
+      </div>
+
+      <div class="card controls-card">
+        <div class="card-title">Controls</div>
+        <div class="controls-list">
+          <div class="control-item"><span>Move</span> <span class="key-badge">← →</span></div>
+          <div class="control-item"><span>Soft Drop</span> <span class="key-badge">↓</span></div>
+          <div class="control-item"><span>Hard Drop</span> <span class="key-badge">Space</span></div>
+          <div class="control-item"><span>Rotate CW</span> <span class="key-badge">↑ / X</span></div>
+          <div class="control-item"><span>Rotate CCW</span> <span class="key-badge">Z</span></div>
+          <div class="control-item"><span>Hold Piece</span> <span class="key-badge">C / Shift</span></div>
+          <div class="control-item"><span>Zone Mode</span> <span class="key-badge">Enter</span></div>
+          <div class="control-item"><span>Restart</span> <span class="key-badge">R</span></div>
+          <div class="control-item"><span>Pause</span> <span class="key-badge">P / Esc</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Panel (Main Board) -->
+    <div class="board-frame">
+      <canvas id="board" width="300" height="600"></canvas>
+
+      <div id="overlay" class="overlay">
+        <h2 id="overlayTitle">INNER PEACE</h2>
+        <p id="overlayDesc">Press START to enter flow state</p>
+        <button id="startBtn" class="btn">Start Game</button>
+      </div>
+    </div>
+
+    <!-- Right Panel (Stats & Next Queue) -->
+    <div class="panel panel-right">
+      <div class="card">
+        <div class="card-title">Score</div>
+        <div id="scoreVal" class="stat-value">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">High Score</div>
+        <div id="highScoreVal" class="stat-value">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Level</div>
+        <div id="levelVal" class="stat-value">1</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Lines</div>
+        <div id="linesVal" class="stat-value">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Next</div>
+        <canvas id="nextCanvas" class="preview-canvas" width="90" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Touch Controls -->
+  <div class="touch-controls">
+    <div class="touch-row">
+      <button class="t-btn" id="tHold">HOLD</button>
+      <button class="t-btn" id="tRotCCW">↺ Z</button>
+      <button class="t-btn" id="tRotCW">↻ ↑</button>
+      <button class="t-btn" id="tPause">⏸</button>
+    </div>
+    <div class="touch-row">
+      <button class="t-btn" id="tLeft">←</button>
+      <button class="t-btn" id="tDown">↓</button>
+      <button class="t-btn" id="tRight">→</button>
+    </div>
+    <div class="touch-row">
+      <button class="t-btn t-btn-wide" id="tHardDrop">HARD DROP ⚡</button>
+      <button class="t-btn" id="tZone" style="border-color:#ffd700; color:#ffd700;" disabled>ZONE ⚡</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Constants & Grid Setup ---
+    const COLS = 10;
+    const ROWS = 20;
+    const BLOCK_SIZE = 30;
+
+    // DAS & ARR Settings (ms)
+    const DAS_DELAY = 150; // Delayed Auto Shift initial pause
+    const ARR_INTERVAL = 30; // Auto Repeat Rate interval
+    const LOCK_DELAY_MS = 500; // Lock Delay buffer time
+    const MAX_LOCK_RESETS = 15; // Max movement resets per lock cycle
+
+    // Tetromino Definitions (Soft Pastel Wax Palette & Matrices)
+    const PIECES = {
+      I: {
+        color: '#8eecf5', // Soft Aqua Cyan
+        glow: 'rgba(142, 236, 245, 0.65)',
+        matrix: [
+          [0, 0, 0, 0],
+          [1, 1, 1, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0]
+        ]
+      },
+      J: {
+        color: '#a3c4f3', // Soft Lavender Blue
+        glow: 'rgba(163, 196, 243, 0.65)',
+        matrix: [
+          [1, 0, 0],
+          [1, 1, 1],
+          [0, 0, 0]
+        ]
+      },
+      L: {
+        color: '#fbc4ab', // Soft Peach
+        glow: 'rgba(251, 196, 171, 0.65)',
+        matrix: [
+          [0, 0, 1],
+          [1, 1, 1],
+          [0, 0, 0]
+        ]
+      },
+      O: {
+        color: '#fcf6bd', // Soft Cream Yellow
+        glow: 'rgba(252, 246, 189, 0.65)',
+        matrix: [
+          [1, 1],
+          [1, 1]
+        ]
+      },
+      S: {
+        color: '#b9fbc0', // Soft Mint Green
+        glow: 'rgba(185, 251, 192, 0.65)',
+        matrix: [
+          [0, 1, 1],
+          [1, 1, 0],
+          [0, 0, 0]
+        ]
+      },
+      T: {
+        color: '#d8bbff', // Soft Violet
+        glow: 'rgba(216, 187, 255, 0.65)',
+        matrix: [
+          [0, 1, 0],
+          [1, 1, 1],
+          [0, 0, 0]
+        ]
+      },
+      Z: {
+        color: '#ff99c8', // Soft Rose Pink
+        glow: 'rgba(255, 153, 200, 0.65)',
+        matrix: [
+          [1, 1, 0],
+          [0, 1, 1],
+          [0, 0, 0]
+        ]
+      },
+      ZONE_STACK: {
+        color: '#fcf6bd',
+        glow: 'rgba(252, 246, 189, 0.85)',
+        matrix: [[1]]
+      }
+    };
+
+    // --- SRS (Standard Rotation System) Offset Tables ---
+    // State 0 = Spawn, 1 = 90 deg CW, 2 = 180 deg, 3 = 270 deg CCW
+    // Format: [dx, dy] where +dx is right, +dy is down
+    const JLSTZ_KICKS = {
+      '0->1': [[0,0], [-1,0], [-1,-1], [0,2], [-1,2]],
+      '1->0': [[0,0], [1,0], [1,1], [0,-2], [1,-2]],
+      '1->2': [[0,0], [1,0], [1,1], [0,-2], [1,-2]],
+      '2->1': [[0,0], [-1,0], [-1,-1], [0,2], [-1,2]],
+      '2->3': [[0,0], [1,0], [1,-1], [0,2], [1,2]],
+      '3->2': [[0,0], [-1,0], [-1,1], [0,-2], [-1,-2]],
+      '3->0': [[0,0], [-1,0], [-1,1], [0,-2], [-1,-2]],
+      '0->3': [[0,0], [1,0], [1,-1], [0,2], [1,2]]
+    };
+
+    const I_KICKS = {
+      '0->1': [[0,0], [-2,0], [1,0], [-2,1], [1,-2]],
+      '1->0': [[0,0], [2,0], [-1,0], [2,-1], [-1,2]],
+      '1->2': [[0,0], [-1,0], [2,0], [-1,-2], [2,1]],
+      '2->1': [[0,0], [1,0], [-2,0], [1,2], [-2,-1]],
+      '2->3': [[0,0], [2,0], [-1,0], [2,-1], [-1,2]],
+      '3->2': [[0,0], [-2,0], [1,0], [-2,1], [1,-2]],
+      '3->0': [[0,0], [1,0], [-2,0], [1,2], [-2,-1]],
+      '0->3': [[0,0], [-1,0], [2,0], [-1,-2], [2,1]]
+    };
+
+    // --- Sound Effects & Ambient Generative BGM Synthesizer (Web Audio API) ---
+    class SoundManager {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+        this.bgmRunning = false;
+        this.bgmTimer = null;
+        this.chimeTimer = null;
+        this.noiseNode = null;
+        this.noiseGain = null;
+        this.bgmMasterGain = null;
+        this.bgmFilter = null;
+        this.currentChordIndex = 0;
+        this.isZoneBgm = false;
+
+        // Healing Meditative Ambient Chord Progressions (Frequencies in Hz)
+        this.chords = [
+          // 0: Cmaj9 [C2 Sub, C3, G3, B3, D4, E4]
+          { root: 65.41, notes: [130.81, 196.00, 246.94, 293.66, 329.63] },
+          // 1: Am9 [A1 Sub, A2, E3, G3, C4, E4]
+          { root: 55.00, notes: [110.00, 164.81, 196.00, 261.63, 329.63] },
+          // 2: Fmaj9 [F1 Sub, F2, C3, E3, A3, C4]
+          { root: 43.65, notes: [87.31, 130.81, 164.81, 220.00, 261.63] },
+          // 3: G6/9 [G1 Sub, G2, D3, F#3, B3, E4]
+          { root: 49.00, notes: [98.00, 146.83, 185.00, 246.94, 329.63] }
+        ];
+
+        // Serene Pentatonic Chime Scale (Crystal Music Box / Kalimba notes)
+        this.chimeScale = [
+          261.63, 293.66, 329.63, 392.00, 440.00, // C4, D4, E4, G4, A4
+          523.25, 587.33, 659.25, 783.99, 880.00, // C5, D5, E5, G5, A5
+          1046.50, 1174.66, 1318.51               // C6, D6, E6
+        ];
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+            this.setupBgmBus();
+          }
+        } else if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      setupBgmBus() {
+        if (!this.ctx || this.bgmMasterGain) return;
+        this.bgmMasterGain = this.ctx.createGain();
+        this.bgmMasterGain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+
+        this.bgmFilter = this.ctx.createBiquadFilter();
+        this.bgmFilter.type = 'lowpass';
+        this.bgmFilter.frequency.setValueAtTime(680, this.ctx.currentTime);
+        this.bgmFilter.Q.setValueAtTime(1.2, this.ctx.currentTime);
+
+        this.bgmFilter.connect(this.bgmMasterGain);
+        this.bgmMasterGain.connect(this.ctx.destination);
+
+        // Subtle ASMR Air / Warm Tape Ambient Texture
+        this.startAirTexture();
+      }
+
+      startAirTexture() {
+        if (!this.ctx || this.noiseNode) return;
+        try {
+          const bufferSize = this.ctx.sampleRate * 2;
+          const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const output = noiseBuffer.getChannelData(0);
+          let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+          for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            b3 = 0.86650 * b3 + white * 0.3104856;
+            b4 = 0.55000 * b4 + white * 0.5329522;
+            b5 = -0.7616 * b5 - white * 0.0168980;
+            output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+            b6 = white * 0.115926;
+          }
+
+          this.noiseNode = this.ctx.createBufferSource();
+          this.noiseNode.buffer = noiseBuffer;
+          this.noiseNode.loop = true;
+
+          const airFilter = this.ctx.createBiquadFilter();
+          airFilter.type = 'bandpass';
+          airFilter.frequency.setValueAtTime(750, this.ctx.currentTime);
+          airFilter.Q.setValueAtTime(1.5, this.ctx.currentTime);
+
+          this.noiseGain = this.ctx.createGain();
+          this.noiseGain.gain.setValueAtTime(0.012, this.ctx.currentTime);
+
+          this.noiseNode.connect(airFilter);
+          airFilter.connect(this.noiseGain);
+          this.noiseGain.connect(this.bgmMasterGain);
+          this.noiseNode.start(0);
+        } catch (e) {}
+      }
+
+      startBGM() {
+        if (!this.enabled) return;
+        this.init();
+        if (this.bgmRunning || !this.ctx) return;
+        this.bgmRunning = true;
+
+        if (this.bgmMasterGain) {
+          const now = this.ctx.currentTime;
+          this.bgmMasterGain.gain.cancelScheduledValues(now);
+          this.bgmMasterGain.gain.setValueAtTime(0.001, now);
+          this.bgmMasterGain.gain.exponentialRampToValueAtTime(0.12, now + 2.0);
+        }
+
+        this.scheduleNextPadChord();
+        this.scheduleNextChime();
+      }
+
+      stopBGM(fade = true) {
+        if (!this.bgmRunning) return;
+        this.bgmRunning = false;
+        if (this.bgmTimer) {
+          clearTimeout(this.bgmTimer);
+          this.bgmTimer = null;
+        }
+        if (this.chimeTimer) {
+          clearTimeout(this.chimeTimer);
+          this.chimeTimer = null;
+        }
+
+        if (this.bgmMasterGain && this.ctx) {
+          const now = this.ctx.currentTime;
+          this.bgmMasterGain.gain.cancelScheduledValues(now);
+          if (fade) {
+            this.bgmMasterGain.gain.setValueAtTime(Math.max(0.001, this.bgmMasterGain.gain.value), now);
+            this.bgmMasterGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.5);
+          } else {
+            this.bgmMasterGain.gain.setValueAtTime(0.0001, now);
+          }
+        }
+      }
+
+      pauseBGM() {
+        if (!this.ctx || !this.bgmMasterGain) return;
+        const now = this.ctx.currentTime;
+        this.bgmMasterGain.gain.cancelScheduledValues(now);
+        this.bgmMasterGain.gain.setValueAtTime(Math.max(0.001, this.bgmMasterGain.gain.value), now);
+        this.bgmMasterGain.gain.exponentialRampToValueAtTime(0.02, now + 0.5);
+        if (this.bgmFilter) {
+          this.bgmFilter.frequency.exponentialRampToValueAtTime(320, now + 0.5);
+        }
+      }
+
+      resumeBGM() {
+        if (!this.enabled) return;
+        if (!this.bgmRunning) {
+          this.startBGM();
+          return;
+        }
+        if (!this.ctx || !this.bgmMasterGain) return;
+        const now = this.ctx.currentTime;
+        this.bgmMasterGain.gain.cancelScheduledValues(now);
+        this.bgmMasterGain.gain.setValueAtTime(Math.max(0.001, this.bgmMasterGain.gain.value), now);
+        this.bgmMasterGain.gain.exponentialRampToValueAtTime(0.12, now + 0.8);
+        if (this.bgmFilter) {
+          const targetFreq = this.isZoneBgm ? 1400 : 680;
+          this.bgmFilter.frequency.exponentialRampToValueAtTime(targetFreq, now + 0.8);
+        }
+      }
+
+      setZoneBGM(active) {
+        this.isZoneBgm = active;
+        if (!this.ctx || !this.bgmFilter || !this.bgmMasterGain) return;
+        const now = this.ctx.currentTime;
+        this.bgmFilter.frequency.cancelScheduledValues(now);
+        if (active) {
+          this.bgmFilter.frequency.exponentialRampToValueAtTime(1450, now + 1.0);
+          this.bgmMasterGain.gain.setValueAtTime(this.bgmMasterGain.gain.value, now);
+          this.bgmMasterGain.gain.linearRampToValueAtTime(0.15, now + 0.8);
+        } else {
+          this.bgmFilter.frequency.exponentialRampToValueAtTime(680, now + 1.5);
+          this.bgmMasterGain.gain.setValueAtTime(this.bgmMasterGain.gain.value, now);
+          this.bgmMasterGain.gain.linearRampToValueAtTime(0.12, now + 1.2);
+        }
+      }
+
+      scheduleNextPadChord() {
+        if (!this.bgmRunning || !this.enabled || !this.ctx) return;
+        const chordDuration = 4.2; // seconds per chord
+        this.playAmbientChord(this.chords[this.currentChordIndex], chordDuration);
+        this.currentChordIndex = (this.currentChordIndex + 1) % this.chords.length;
+
+        this.bgmTimer = setTimeout(() => {
+          this.scheduleNextPadChord();
+        }, (chordDuration - 0.6) * 1000); // smooth overlapping crossfade
+      }
+
+      playAmbientChord(chordData, duration) {
+        if (!this.ctx || !this.bgmFilter) return;
+        try {
+          const now = this.ctx.currentTime;
+          const attack = 1.4;
+          const release = 1.8;
+
+          // 1. Sub Bass Root Drone
+          const subOsc = this.ctx.createOscillator();
+          const subGain = this.ctx.createGain();
+          subOsc.type = 'sine';
+          subOsc.frequency.setValueAtTime(chordData.root, now);
+
+          subGain.gain.setValueAtTime(0.001, now);
+          subGain.gain.linearRampToValueAtTime(0.18, now + attack);
+          subGain.gain.setValueAtTime(0.18, now + duration - release);
+          subGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+          subOsc.connect(subGain);
+          subGain.connect(this.bgmFilter);
+          subOsc.start(now);
+          subOsc.stop(now + duration + 0.1);
+
+          // 2. Lush Multi-voice Pad notes with gentle subtle chorus detune
+          chordData.notes.forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = i % 2 === 0 ? 'triangle' : 'sine';
+            const detune = (i % 2 === 0 ? 1 : -1) * (2.5 + i * 1.2);
+            osc.frequency.setValueAtTime(freq, now);
+            osc.detune.setValueAtTime(detune, now);
+
+            const noteVol = 0.045 / Math.sqrt(chordData.notes.length);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.linearRampToValueAtTime(noteVol, now + attack + i * 0.15);
+            gain.gain.setValueAtTime(noteVol, now + duration - release);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+            osc.connect(gain);
+            gain.connect(this.bgmFilter);
+            osc.start(now);
+            osc.stop(now + duration + 0.1);
+          });
+        } catch (e) {}
+      }
+
+      scheduleNextChime() {
+        if (!this.bgmRunning || !this.enabled || !this.ctx) return;
+
+        // Play gentle random pentatonic chime note
+        const noteIdx = Math.floor(Math.random() * this.chimeScale.length);
+        const freq = this.chimeScale[noteIdx];
+        this.playKalimbaChime(freq);
+
+        if (this.isZoneBgm && Math.random() > 0.4) {
+          // Extra celestial chime in Zone mode
+          setTimeout(() => {
+            if (this.bgmRunning) {
+              const sparkNote = this.chimeScale[Math.min(this.chimeScale.length - 1, noteIdx + 3)];
+              this.playKalimbaChime(sparkNote, 0.04);
+            }
+          }, 180);
+        }
+
+        // Random organic breathing interval
+        const nextDelay = this.isZoneBgm ? (500 + Math.random() * 800) : (1100 + Math.random() * 1600);
+        this.chimeTimer = setTimeout(() => {
+          this.scheduleNextChime();
+        }, nextDelay);
+      }
+
+      playKalimbaChime(freq, vol = 0.05) {
+        if (!this.ctx || !this.bgmMasterGain) return;
+        try {
+          const now = this.ctx.currentTime;
+          const duration = 1.4 + Math.random() * 0.8;
+
+          // Fundamental Sine Wave
+          const osc1 = this.ctx.createOscillator();
+          const gain1 = this.ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(freq, now);
+
+          gain1.gain.setValueAtTime(0.001, now);
+          gain1.gain.linearRampToValueAtTime(vol, now + 0.02);
+          gain1.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          osc1.connect(gain1);
+          gain1.connect(this.bgmMasterGain);
+          osc1.start(now);
+          osc1.stop(now + duration);
+
+          // Soft 2.76x crystalline overtone (gives kalimba/bell warmth)
+          const osc2 = this.ctx.createOscillator();
+          const gain2 = this.ctx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(freq * 2.76, now);
+
+          gain2.gain.setValueAtTime(0.001, now);
+          gain2.gain.linearRampToValueAtTime(vol * 0.28, now + 0.015);
+          gain2.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.4);
+
+          osc2.connect(gain2);
+          gain2.connect(this.bgmMasterGain);
+          osc2.start(now);
+          osc2.stop(now + duration * 0.5);
+        } catch (e) {}
+      }
+
+      toggleSound() {
+        this.enabled = !this.enabled;
+        if (!this.enabled) {
+          this.stopBGM(true);
+        } else {
+          this.init();
+          this.startBGM();
+        }
+        return this.enabled;
+      }
+
+      playTone(freq, type = 'sine', duration = 0.08, vol = 0.12, targetFreq = null) {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          if (this.ctx.state === 'suspended') this.ctx.resume();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          const now = this.ctx.currentTime;
+          osc.frequency.setValueAtTime(freq, now);
+          if (targetFreq) {
+            osc.frequency.exponentialRampToValueAtTime(targetFreq, now + duration);
+          }
+          gain.gain.setValueAtTime(vol, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + duration);
+        } catch (e) {}
+      }
+
+      move() {
+        this.playTone(380, 'sine', 0.03, 0.08, 520);
+      }
+
+      rotate() {
+        this.playTone(450, 'sine', 0.04, 0.09, 720);
+        setTimeout(() => this.playTone(880, 'sine', 0.02, 0.05), 25);
+      }
+
+      softDrop() {
+        this.playTone(280, 'sine', 0.02, 0.05, 180);
+      }
+
+      hardDrop() {
+        if (!this.enabled || !this.ctx) return;
+        this.playWaxShatter(0.18);
+        this.playTone(320, 'sine', 0.05, 0.15, 80);
+      }
+
+      hold() {
+        this.playTone(520, 'sine', 0.05, 0.08, 780);
+      }
+
+      // Crispy ASMR Wax Shatter Audio (High-pass/Band-pass filtered White Noise + decay)
+      playWaxShatter(vol = 0.28) {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          if (this.ctx.state === 'suspended') this.ctx.resume();
+          const now = this.ctx.currentTime;
+          for (let b = 0; b < 3; b++) {
+            const delay = b * 0.02;
+            const duration = 0.07 + Math.random() * 0.04;
+            const bufferSize = Math.floor(this.ctx.sampleRate * duration);
+            const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
+            }
+            const noise = this.ctx.createBufferSource();
+            noise.buffer = buffer;
+
+            const filter = this.ctx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.setValueAtTime(2400 + Math.random() * 1600, now + delay);
+            filter.Q.setValueAtTime(2.5 + Math.random() * 2.0, now + delay);
+
+            const gain = this.ctx.createGain();
+            gain.gain.setValueAtTime(vol * (0.8 + Math.random() * 0.4), now + delay);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + duration);
+
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.ctx.destination);
+            noise.start(now + delay);
+          }
+        } catch (e) {}
+      }
+
+      clearLine() {
+        if (!this.enabled || !this.ctx) return;
+        this.playWaxShatter(0.35);
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            this.playTone(freq, 'sine', 0.1, 0.1, freq * 1.05);
+          }, idx * 40);
+        });
+      }
+
+      tetris() {
+        if (!this.enabled || !this.ctx) return;
+        this.playWaxShatter(0.45);
+        const arpeggio = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98];
+        arpeggio.forEach((freq, idx) => {
+          setTimeout(() => {
+            this.playTone(freq, 'sine', 0.15, 0.12, freq * 1.1);
+          }, idx * 45);
+        });
+      }
+
+      zoneStart() {
+        if (!this.enabled || !this.ctx) return;
+        this.playTone(110, 'sawtooth', 0.4, 0.2, 880);
+        setTimeout(() => {
+          [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00].forEach((f, i) => {
+            setTimeout(() => this.playTone(f, 'sine', 0.15, 0.12, f * 1.08), i * 35);
+          });
+        }, 150);
+      }
+
+      zoneStack(count) {
+        if (!this.enabled || !this.ctx) return;
+        const baseFreq = 440 * Math.pow(1.06, Math.min(count, 20));
+        this.playTone(baseFreq, 'triangle', 0.12, 0.15, baseFreq * 1.2);
+        this.playTone(baseFreq * 1.5, 'sine', 0.1, 0.1);
+      }
+
+      zoneFinale(count) {
+        if (!this.enabled || !this.ctx) return;
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+        notes.forEach((f, i) => {
+          setTimeout(() => {
+            this.playTone(f, 'square', 0.25, 0.14, f * 1.12);
+          }, i * 40);
+        });
+        setTimeout(() => {
+          this.playTone(65.41, 'sawtooth', 0.6, 0.25, 32.70);
+          this.playTone(130.81, 'triangle', 0.5, 0.2);
+        }, 200);
+      }
+
+      combo(comboNum) {
+        if (!this.enabled || !this.ctx) return;
+        const baseFreq = 440 * Math.pow(1.08, Math.min(comboNum, 12));
+        this.playTone(baseFreq, 'sine', 0.12, 0.12, baseFreq * 1.3);
+        this.playTone(baseFreq * 1.5, 'triangle', 0.08, 0.1);
+      }
+
+      tSpin() {
+        if (!this.enabled || !this.ctx) return;
+        [600, 800, 1200].forEach((freq, idx) => {
+          setTimeout(() => {
+            this.playTone(freq, 'sawtooth', 0.12, 0.1, freq * 1.15);
+          }, idx * 40);
+        });
+      }
+
+      gameOver() {
+        if (!this.enabled || !this.ctx) return;
+        const notes = [329.63, 293.66, 261.63, 220.00, 164.81];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            this.playTone(freq, 'sawtooth', 0.22, 0.1, freq * 0.85);
+          }, idx * 110);
+        });
+      }
+    }
+
+    const sound = new SoundManager();
+
+    // --- Audiovisual Particle, Popups & Screen Shake System ---
+    let shakeIntensity = 0;
+    let particles = [];
+    let textPopups = [];
+
+    function triggerShake(amount) {
+      shakeIntensity = Math.max(shakeIntensity, amount);
+    }
+
+    class TextPopup {
+      constructor(text, x, y, color = '#ffd700', fontSize = 28) {
+        this.text = text;
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.fontSize = fontSize;
+        this.life = 1.0;
+        this.scale = 0.4;
+      }
+
+      update() {
+        this.y -= 0.6;
+        this.life -= 0.014;
+        if (this.scale < 1.15) this.scale += 0.09;
+      }
+
+      draw(context) {
+        if (this.life <= 0) return;
+        context.save();
+        context.globalAlpha = Math.max(0, this.life);
+        context.font = `900 ${Math.round(this.fontSize * this.scale)}px 'Segoe UI', system-ui, sans-serif`;
+        context.textAlign = 'center';
+        context.shadowColor = this.color;
+        context.shadowBlur = 18;
+        context.fillStyle = this.color;
+        context.fillText(this.text, this.x, this.y);
+        context.strokeStyle = '#ffffff';
+        context.lineWidth = 2;
+        context.strokeText(this.text, this.x, this.y);
+        context.restore();
+      }
+    }
+
+    class WaxShard {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 2;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed - 1.5;
+        this.rot = Math.random() * Math.PI * 2;
+        this.vRot = (Math.random() - 0.5) * 0.35;
+        this.size = Math.random() * 6 + 4;
+        this.life = 1.0;
+        this.maxLife = 1.0 + Math.random() * 0.3;
+        this.shape = [
+          { x: -this.size * (0.6 + Math.random() * 0.4), y: -this.size * (0.6 + Math.random() * 0.4) },
+          { x: this.size * (0.6 + Math.random() * 0.4), y: -this.size * (0.4 + Math.random() * 0.4) },
+          { x: this.size * (0.4 + Math.random() * 0.4), y: this.size * (0.6 + Math.random() * 0.4) },
+          { x: -this.size * (0.5 + Math.random() * 0.4), y: this.size * (0.5 + Math.random() * 0.4) }
+        ];
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.28;
+        this.vx *= 0.96;
+        this.rot += this.vRot;
+        this.life -= 0.022;
+      }
+
+      draw(context) {
+        if (this.life <= 0) return;
+        context.save();
+        context.globalAlpha = Math.max(0, this.life / this.maxLife);
+        context.translate(this.x, this.y);
+        context.rotate(this.rot);
+
+        context.fillStyle = this.color;
+        context.shadowColor = this.color;
+        context.shadowBlur = 8;
+        context.beginPath();
+        context.moveTo(this.shape[0].x, this.shape[0].y);
+        for (let i = 1; i < this.shape.length; i++) {
+          context.lineTo(this.shape[i].x, this.shape[i].y);
+        }
+        context.closePath();
+        context.fill();
+
+        context.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        context.lineWidth = 1;
+        context.stroke();
+
+        context.restore();
+      }
+    }
+
+    class Particle {
+      constructor(x, y, color, vx, vy, size, life) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.vx = vx !== undefined ? vx : (Math.random() - 0.5) * 6;
+        this.vy = vy !== undefined ? vy : (Math.random() - 0.5) * 6 - 1;
+        this.size = size || (Math.random() * 4 + 2);
+        this.life = life || 1.0;
+        this.maxLife = this.life;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.12;
+        this.life -= 0.025;
+      }
+
+      draw(context) {
+        if (this.life <= 0) return;
+        context.save();
+        context.globalAlpha = Math.max(0, this.life / this.maxLife);
+        context.shadowColor = this.color;
+        context.shadowBlur = 12;
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
+      }
+    }
+
+    function createDropSparks(piece) {
+      if (!piece) return;
+      const m = piece.matrix;
+      for (let r = 0; r < m.length; r++) {
+        for (let c = 0; c < m[r].length; c++) {
+          if (m[r][c] !== 0) {
+            const px = (piece.x + c + 0.5) * BLOCK_SIZE;
+            const py = (piece.y + r + 1) * BLOCK_SIZE;
+            const color = PIECES[piece.type].color;
+            for (let i = 0; i < 4; i++) {
+              particles.push(new Particle(
+                px + (Math.random() - 0.5) * BLOCK_SIZE,
+                py,
+                color,
+                (Math.random() - 0.5) * 7,
+                -Math.random() * 5 - 1,
+                Math.random() * 3 + 2,
+                1.0
+              ));
+            }
+          }
+        }
+      }
+    }
+
+    function createLineClearParticles(rows) {
+      for (let r of rows) {
+        const py = (r + 0.5) * BLOCK_SIZE;
+        for (let c = 0; c < COLS; c++) {
+          const px = (c + 0.5) * BLOCK_SIZE;
+          const cellType = grid[r][c] || 'I';
+          const color = PIECES[cellType]?.color || '#ff75a0';
+          for (let i = 0; i < 7; i++) {
+            particles.push(new WaxShard(
+              px + (Math.random() - 0.5) * (BLOCK_SIZE * 0.8),
+              py + (Math.random() - 0.5) * (BLOCK_SIZE * 0.8),
+              color
+            ));
+          }
+        }
+      }
+    }
+
+    // --- Official 7-Bag Generator ---
+    class BagRandomizer {
+      constructor() {
+        this.bag = [];
+      }
+
+      next() {
+        if (this.bag.length === 0) {
+          this.bag = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+          for (let i = this.bag.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.bag[i], this.bag[j]] = [this.bag[j], this.bag[i]];
+          }
+        }
+        return this.bag.pop();
+      }
+
+      peek(count = 3) {
+        let tempBag = [...this.bag];
+        let result = [];
+        while (result.length < count) {
+          if (tempBag.length === 0) {
+            let refilled = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+            for (let i = refilled.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [refilled[i], refilled[j]] = [refilled[j], refilled[i]];
+            }
+            tempBag = refilled;
+          }
+          result.push(tempBag.pop());
+        }
+        return result;
+      }
+    }
+
+    // --- Engine Variables ---
+    const canvas = document.getElementById('board');
+    const ctx = canvas.getContext('2d');
+    const holdCanvas = document.getElementById('holdCanvas');
+    const holdCtx = holdCanvas.getContext('2d');
+    const nextCanvas = document.getElementById('nextCanvas');
+    const nextCtx = nextCanvas.getContext('2d');
+
+    const overlay = document.getElementById('overlay');
+    const overlayTitle = document.getElementById('overlayTitle');
+    const overlayDesc = document.getElementById('overlayDesc');
+    const startBtn = document.getElementById('startBtn');
+    const soundToggle = document.getElementById('soundToggle');
+
+    const scoreValEl = document.getElementById('scoreVal');
+    const highScoreValEl = document.getElementById('highScoreVal');
+    const levelValEl = document.getElementById('levelVal');
+    const linesValEl = document.getElementById('linesVal');
+
+    const zoneMeterBar = document.getElementById('zoneMeterBar');
+    const zoneMeterText = document.getElementById('zoneMeterText');
+    const zoneTriggerBtn = document.getElementById('zoneTriggerBtn');
+    const tZoneBtn = document.getElementById('tZone');
+    const boardFrame = document.querySelector('.board-frame');
+
+    let grid = Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
+    let bag = new BagRandomizer();
+
+    let currentPiece = null;
+    let holdPieceType = null;
+    let canHold = true;
+
+    let score = 0;
+    let highScore = parseInt(localStorage.getItem('tetris_high_score') || '0', 10);
+    let level = 1;
+    let linesCleared = 0;
+
+    let zoneGauge = 0; // 0 to 100
+    let isZoneActive = false;
+    let zoneTimeRemaining = 8.0;
+    let zoneStackedCount = 0;
+
+    let gameOver = false;
+    let isPaused = false;
+    let isGameRunning = false;
+
+    let lastTime = 0;
+    let dropCounter = 0;
+    let lockTimer = null;
+    let lockResetCount = 0;
+
+    let flashRows = [];
+    let comboCount = -1;
+    let lastActionWasRotate = false;
+
+    // Keyboard state tracking for DAS / ARR
+    const keysState = {};
+
+    highScoreValEl.textContent = highScore;
+
+    function updateZoneMeterUI() {
+      if (!zoneMeterBar) return;
+      const pct = Math.min(100, Math.max(0, zoneGauge));
+      zoneMeterBar.style.width = pct + '%';
+      zoneMeterText.textContent = isZoneActive ? 'ACTIVE' : Math.round(pct) + '%';
+
+      const isReady = pct >= 100 && !isZoneActive && isGameRunning && !gameOver;
+      if (zoneTriggerBtn) {
+        zoneTriggerBtn.disabled = !isReady;
+        if (isReady) zoneTriggerBtn.classList.add('ready');
+        else zoneTriggerBtn.classList.remove('ready');
+      }
+      if (tZoneBtn) {
+        tZoneBtn.disabled = !isReady;
+        tZoneBtn.style.opacity = isReady ? '1' : '0.4';
+      }
+    }
+
+    function activateZone() {
+      if (isZoneActive || zoneGauge < 100 || !isGameRunning || isPaused || gameOver) return;
+      isZoneActive = true;
+      zoneGauge = 0;
+      zoneTimeRemaining = 8.0;
+      zoneStackedCount = 0;
+
+      updateZoneMeterUI();
+      if (boardFrame) boardFrame.classList.add('zone-active');
+
+      sound.zoneStart();
+      sound.setZoneBGM(true);
+      triggerShake(14);
+
+      for (let i = 0; i < 50; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 2;
+        particles.push(new Particle(
+          150,
+          300,
+          '#ffd700',
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed,
+          Math.random() * 4 + 3,
+          1.5
+        ));
+      }
+
+      textPopups.push(new TextPopup('TIME FREEZE!', 150, 260, '#ffd700', 32));
+    }
+
+    function createZoneFinaleExplosion(count) {
+      for (let i = 0; i < 110; i++) {
+        const px = Math.random() * (COLS * BLOCK_SIZE);
+        const py = (ROWS - Math.random() * Math.min(ROWS, count + 2)) * BLOCK_SIZE;
+        const color = Math.random() > 0.4 ? '#ffd700' : '#00f0f0';
+        particles.push(new Particle(
+          px,
+          py,
+          color,
+          (Math.random() - 0.5) * 14,
+          (Math.random() - 0.5) * 14 - 3,
+          Math.random() * 5 + 3,
+          1.8
+        ));
+      }
+    }
+
+    function endZoneAndExplode() {
+      if (!isZoneActive) return;
+      isZoneActive = false;
+      if (boardFrame) boardFrame.classList.remove('zone-active');
+
+      const count = zoneStackedCount;
+      if (count > 0) {
+        let title = "ZONE CLEAR!";
+        if (count >= 20) title = "ODECATRIS!";
+        else if (count >= 16) title = "DECATRIS!";
+        else if (count >= 12) title = "DODECATRIS!";
+        else if (count >= 8) title = "OCTATRIS!";
+        else if (count >= 4) title = "TETRIS ZONE!";
+
+        const zoneBonus = count * 1500 * level + (count * count) * 250;
+        score += zoneBonus;
+        scoreValEl.textContent = score;
+
+        if (score > highScore) {
+          highScore = score;
+          highScoreValEl.textContent = highScore;
+          localStorage.setItem('tetris_high_score', highScore);
+        }
+
+        triggerShake(28);
+        sound.zoneFinale(count);
+        createZoneFinaleExplosion(count);
+
+        textPopups.push(new TextPopup(title, 150, 220, '#ffd700', 38));
+        textPopups.push(new TextPopup(`+${zoneBonus.toLocaleString()} PTS`, 150, 275, '#00f0f0', 26));
+
+        // Clear out all ZONE_STACK rows and filled blocks from the board
+        for (let r = 0; r < ROWS; r++) {
+          if (grid[r].some(cell => cell === 'ZONE_STACK')) {
+            grid[r] = new Array(COLS).fill(0);
+          }
+        }
+      } else {
+        textPopups.push(new TextPopup('ZONE ENDED', 150, 260, '#8898aa', 28));
+      }
+
+      zoneStackedCount = 0;
+      zoneTimeRemaining = 0;
+      sound.setZoneBGM(false);
+      updateZoneMeterUI();
+      spawnPiece();
+    }
+
+    // --- Piece Factory & Collision ---
+    function createPiece(type) {
+      const config = PIECES[type];
+      return {
+        type: type,
+        matrix: config.matrix.map(row => [...row]),
+        color: config.color,
+        glow: config.glow,
+        x: Math.floor((COLS - config.matrix[0].length) / 2),
+        y: type === 'I' ? -1 : 0,
+        rotationState: 0 // 0, 1, 2, 3
+      };
+    }
+
+    function collide(boardGrid, piece) {
+      const m = piece.matrix;
+      for (let r = 0; r < m.length; r++) {
+        for (let c = 0; c < m[r].length; c++) {
+          if (m[r][c] !== 0) {
+            const newX = piece.x + c;
+            const newY = piece.y + r;
+            if (newX < 0 || newX >= COLS || newY >= ROWS) return true;
+            if (newY >= 0 && boardGrid[newY][newX] !== 0) return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function isGrounded() {
+      if (!currentPiece) return false;
+      return collide(grid, { ...currentPiece, y: currentPiece.y + 1 });
+    }
+
+    // --- SRS Wall Kick Rotation ---
+    function rotateMatrix(matrix, dir) {
+      const N = matrix.length;
+      const result = Array.from({ length: N }, () => new Array(N).fill(0));
+      for (let r = 0; r < N; r++) {
+        for (let c = 0; c < N; c++) {
+          if (dir > 0) result[c][N - 1 - r] = matrix[r][c]; // Clockwise
+          else result[N - 1 - c][r] = matrix[r][c]; // Counter-Clockwise
+        }
+      }
+      return result;
+    }
+
+    function playerRotate(dir) {
+      if (!currentPiece || isPaused || gameOver) return;
+      if (currentPiece.type === 'O') return; // O piece doesn't need wall kicks
+
+      const oldState = currentPiece.rotationState;
+      const newState = (oldState + dir + 4) % 4;
+      const key = `${oldState}->${newState}`;
+      
+      const kickTable = (currentPiece.type === 'I') ? I_KICKS : JLSTZ_KICKS;
+      const kicks = kickTable[key] || [[0,0]];
+
+      const rotatedMatrix = rotateMatrix(currentPiece.matrix, dir);
+      const originalX = currentPiece.x;
+      const originalY = currentPiece.y;
+
+      currentPiece.matrix = rotatedMatrix;
+
+      let rotationSuccess = false;
+      for (let i = 0; i < kicks.length; i++) {
+        const [dx, dy] = kicks[i];
+        currentPiece.x = originalX + dx;
+        currentPiece.y = originalY + dy; // dy is down in canvas coordinates
+
+        if (!collide(grid, currentPiece)) {
+          currentPiece.rotationState = newState;
+          rotationSuccess = true;
+          break;
+        }
+      }
+
+      if (!rotationSuccess) {
+        // Revert
+        currentPiece.matrix = rotateMatrix(rotatedMatrix, -dir);
+        currentPiece.x = originalX;
+        currentPiece.y = originalY;
+      } else {
+        lastActionWasRotate = true;
+        sound.rotate();
+        resetLockDelay();
+      }
+    }
+
+    // --- Movement & Drops ---
+    function playerMove(dir) {
+      if (!currentPiece || isPaused || gameOver) return false;
+      currentPiece.x += dir;
+      if (collide(grid, currentPiece)) {
+        currentPiece.x -= dir;
+        return false;
+      } else {
+        lastActionWasRotate = false;
+        sound.move();
+        resetLockDelay();
+        return true;
+      }
+    }
+
+    function playerSoftDrop() {
+      if (!currentPiece || isPaused || gameOver) return;
+      currentPiece.y++;
+      if (collide(grid, currentPiece)) {
+        currentPiece.y--;
+        if (lockTimer === null) lockTimer = performance.now(); // trigger lock
+      } else {
+        lastActionWasRotate = false;
+        score += 1;
+        scoreValEl.textContent = score;
+        sound.softDrop();
+        dropCounter = 0;
+      }
+    }
+
+    function playerHardDrop() {
+      if (!currentPiece || isPaused || gameOver) return;
+      let dropDist = 0;
+      while (!collide(grid, currentPiece)) {
+        currentPiece.y++;
+        dropDist++;
+      }
+      currentPiece.y--;
+      dropDist--;
+
+      score += dropDist * 2;
+      scoreValEl.textContent = score;
+
+      createDropSparks(currentPiece);
+      triggerShake(6);
+      sound.hardDrop();
+      lockPiece();
+    }
+
+    function playerHold() {
+      if (!currentPiece || !canHold || isPaused || gameOver) return;
+
+      sound.hold();
+      if (holdPieceType === null) {
+        holdPieceType = currentPiece.type;
+        spawnPiece();
+      } else {
+        const temp = currentPiece.type;
+        holdPieceType = temp;
+        currentPiece = createPiece(holdPieceType);
+      }
+      canHold = false;
+      lockTimer = null;
+      lockResetCount = 0;
+      drawPreviews();
+    }
+
+    function resetLockDelay() {
+      if (isGrounded()) {
+        if (lockResetCount < MAX_LOCK_RESETS) {
+          lockTimer = performance.now();
+          lockResetCount++;
+        }
+      } else {
+        lockTimer = null;
+      }
+    }
+
+    // --- Ghost Piece ---
+    function getGhostPosition() {
+      if (!currentPiece) return null;
+      const ghost = { ...currentPiece, matrix: currentPiece.matrix };
+      while (!collide(grid, ghost)) {
+        ghost.y++;
+      }
+      ghost.y--;
+      return ghost;
+    }
+
+    // --- Locking & Clearing ---
+    function lockPiece() {
+      if (!currentPiece) return;
+      const m = currentPiece.matrix;
+
+      // T-Spin Check
+      let isTSpin = false;
+      if (currentPiece.type === 'T' && lastActionWasRotate) {
+        const cx = currentPiece.x + 1;
+        const cy = currentPiece.y + 1;
+        const corners = [
+          [cx - 1, cy - 1],
+          [cx + 1, cy - 1],
+          [cx - 1, cy + 1],
+          [cx + 1, cy + 1]
+        ];
+        let occupied = 0;
+        for (const [x, y] of corners) {
+          if (x < 0 || x >= COLS || y >= ROWS || (y >= 0 && grid[y][x] !== 0)) {
+            occupied++;
+          }
+        }
+        if (occupied >= 3) {
+          isTSpin = true;
+        }
+      }
+
+      for (let r = 0; r < m.length; r++) {
+        for (let c = 0; c < m[r].length; c++) {
+          if (m[r][c] !== 0) {
+            const boardY = currentPiece.y + r;
+            const boardX = currentPiece.x + c;
+            if (boardY < 0) {
+              if (isZoneActive) {
+                endZoneAndExplode();
+                return;
+              } else {
+                triggerGameOver();
+                return;
+              }
+            }
+            grid[boardY][boardX] = currentPiece.type;
+          }
+        }
+      }
+
+      // Check full rows
+      let completedRows = [];
+      for (let r = 0; r < ROWS; r++) {
+        if (grid[r].every(cell => cell !== 0)) completedRows.push(r);
+      }
+
+      if (isZoneActive) {
+        if (completedRows.length > 0) {
+          // Zone Line Stacking Logic
+          zoneStackedCount += completedRows.length;
+          sound.zoneStack(zoneStackedCount);
+          triggerShake(6 + completedRows.length * 3);
+          createLineClearParticles(completedRows);
+
+          // Convert completed rows into gold ZONE_STACK rows and stack at bottom
+          let nonZoneRows = [];
+          let existingZoneRows = [];
+          for (let r = 0; r < ROWS; r++) {
+            if (completedRows.includes(r)) continue;
+            if (grid[r][0] === 'ZONE_STACK') {
+              existingZoneRows.push([...grid[r]]);
+            } else {
+              nonZoneRows.push([...grid[r]]);
+            }
+          }
+
+          const newZoneRows = Array.from({ length: completedRows.length }, () => new Array(COLS).fill('ZONE_STACK'));
+          const totalZoneStack = newZoneRows.concat(existingZoneRows);
+
+          const emptyCount = ROWS - nonZoneRows.length - totalZoneStack.length;
+          const newGrid = [];
+          for (let i = 0; i < emptyCount; i++) {
+            newGrid.push(new Array(COLS).fill(0));
+          }
+          newGrid.push(...nonZoneRows);
+          newGrid.push(...totalZoneStack);
+          grid = newGrid;
+
+          textPopups.push(new TextPopup(`${zoneStackedCount} STACKED!`, 150, 180, '#00f0f0', 22));
+
+          if (grid[0].some(cell => cell !== 0)) {
+            endZoneAndExplode();
+            return;
+          }
+        }
+        spawnPiece();
+      } else {
+        const linesCount = completedRows.length;
+        if (linesCount > 0) {
+          comboCount++;
+        } else {
+          comboCount = -1;
+        }
+
+        if (isTSpin) {
+          sound.tSpin();
+          let tTitle = "T-SPIN!";
+          let tPts = 100 * level;
+          if (linesCount === 1) { tTitle = "T-SPIN SINGLE!"; tPts = 800 * level; }
+          else if (linesCount === 2) { tTitle = "T-SPIN DOUBLE!"; tPts = 1200 * level; }
+          else if (linesCount === 3) { tTitle = "T-SPIN TRIPLE!"; tPts = 1600 * level; }
+
+          score += tPts;
+          scoreValEl.textContent = score;
+          triggerShake(10 + linesCount * 4);
+          textPopups.push(new TextPopup(tTitle, 150, 220, '#ff007f', 30));
+        } else if (linesCount > 0) {
+          if (linesCount === 4) {
+            textPopups.push(new TextPopup('TETRIS!', 150, 220, '#00f0f0', 36));
+          } else if (linesCount === 3) {
+            textPopups.push(new TextPopup('TRIPLE!', 150, 230, '#a000f0', 28));
+          } else if (linesCount === 2) {
+            textPopups.push(new TextPopup('DOUBLE!', 150, 240, '#ff9500', 26));
+          } else if (linesCount === 1 && comboCount <= 0) {
+            textPopups.push(new TextPopup('SINGLE', 150, 250, '#8898aa', 22));
+          }
+        }
+
+        if (comboCount > 0) {
+          const comboBonus = 50 * comboCount * level;
+          score += comboBonus;
+          scoreValEl.textContent = score;
+          sound.combo(comboCount);
+          textPopups.push(new TextPopup(`${comboCount} COMBO! 🔥`, 150, 275, '#ffd700', 28));
+        }
+
+        if (completedRows.length > 0) {
+          flashRows = completedRows;
+          createLineClearParticles(completedRows);
+
+          if (completedRows.length === 4) {
+            triggerShake(16);
+            sound.tetris();
+          } else if (!isTSpin) {
+            triggerShake(5 + completedRows.length * 2);
+            sound.clearLine();
+          }
+
+          setTimeout(() => {
+            for (let rowIdx of completedRows) {
+              grid.splice(rowIdx, 1);
+              grid.unshift(new Array(COLS).fill(0));
+            }
+            updateScoring(completedRows.length);
+            flashRows = [];
+            spawnPiece();
+          }, 160);
+        } else {
+          spawnPiece();
+        }
+      }
+    }
+
+    function spawnPiece() {
+      const nextType = bag.next();
+      currentPiece = createPiece(nextType);
+      canHold = true;
+      lockTimer = null;
+      lockResetCount = 0;
+      lastActionWasRotate = false;
+
+      if (collide(grid, currentPiece)) {
+        if (isZoneActive) {
+          endZoneAndExplode();
+        } else {
+          triggerGameOver();
+        }
+      }
+      drawPreviews();
+    }
+
+    function updateScoring(clearedLines) {
+      linesCleared += clearedLines;
+      const linePoints = [0, 100, 300, 500, 800];
+      score += linePoints[clearedLines] * level;
+      level = Math.floor(linesCleared / 10) + 1;
+
+      scoreValEl.textContent = score;
+      levelValEl.textContent = level;
+      linesValEl.textContent = linesCleared;
+
+      if (!isZoneActive) {
+        const boost = [0, 15, 35, 65, 100][clearedLines] || 15;
+        zoneGauge = Math.min(100, zoneGauge + boost);
+        updateZoneMeterUI();
+      }
+
+      if (score > highScore) {
+        highScore = score;
+        highScoreValEl.textContent = highScore;
+        localStorage.setItem('tetris_high_score', highScore);
+      }
+    }
+
+    function getDropInterval() {
+      return Math.max(50, 1000 - (level - 1) * 85);
+    }
+
+    function triggerGameOver() {
+      gameOver = true;
+      isGameRunning = false;
+      sound.gameOver();
+      sound.stopBGM(true);
+      overlayTitle.textContent = "GAME OVER";
+      overlayDesc.innerHTML = `
+        <div style="font-size:0.85rem; letter-spacing:2px; color:#b3a8cf; text-transform:uppercase; margin-bottom:4px;">Final Score</div>
+        <div style="font-size:2.2rem; font-weight:900; color:#8eecf5; text-shadow:0 0 16px rgba(142,236,245,0.8); font-family:monospace; margin-bottom:12px;">${score.toLocaleString()}</div>
+        <div style="font-size:0.85rem; color:#f5efff; margin-bottom:14px;">Level <strong style="color:#fcf6bd">${level}</strong> &nbsp;•&nbsp; Lines <strong style="color:#ff99c8">${linesCleared}</strong></div>
+        <div style="font-size:0.75rem; color:#d8bbff; border:1px solid rgba(216,187,255,0.4); padding:6px 12px; border-radius:8px; background:rgba(216,187,255,0.12); display:inline-block;">Press <strong style="color:#fff">[R]</strong> to Instant Restart</div>
+      `;
+      startBtn.textContent = "Play Again";
+      overlay.classList.remove('hidden');
+    }
+
+    function resetGame() {
+      grid = Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
+      bag = new BagRandomizer();
+      score = 0;
+      level = 1;
+      linesCleared = 0;
+      holdPieceType = null;
+      canHold = true;
+      gameOver = false;
+      isPaused = false;
+      isGameRunning = true;
+      lockTimer = null;
+      particles = [];
+      textPopups = [];
+      shakeIntensity = 0;
+      comboCount = -1;
+      lastActionWasRotate = false;
+
+      zoneGauge = 0;
+      isZoneActive = false;
+      zoneTimeRemaining = 8.0;
+      zoneStackedCount = 0;
+      if (boardFrame) boardFrame.classList.remove('zone-active');
+      updateZoneMeterUI();
+
+      scoreValEl.textContent = score;
+      levelValEl.textContent = level;
+      linesValEl.textContent = linesCleared;
+
+      overlay.classList.add('hidden');
+      sound.init();
+      sound.setZoneBGM(false);
+      sound.startBGM();
+
+      spawnPiece();
+      lastTime = performance.now();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function togglePause() {
+      if (!isGameRunning || gameOver) return;
+      isPaused = !isPaused;
+      if (isPaused) {
+        sound.pauseBGM();
+        overlayTitle.textContent = "PAUSED";
+        overlayDesc.textContent = "Press P, ESC or click Resume";
+        startBtn.textContent = "Resume";
+        overlay.classList.remove('hidden');
+      } else {
+        sound.resumeBGM();
+        overlay.classList.add('hidden');
+        lastTime = performance.now();
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+    // --- Rendering ---
+    function drawRoundedRect(ctx, x, y, width, height, radius) {
+      if (typeof ctx.roundRect === 'function') {
+        ctx.beginPath();
+        ctx.roundRect(x, y, width, height, radius);
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.arcTo(x + width, y, x + width, y + radius, radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+        ctx.lineTo(x + radius, y + height);
+        ctx.arcTo(x, y + height, x, y + height - radius, radius);
+        ctx.lineTo(x, y + radius);
+        ctx.arcTo(x, y, x + radius, y, radius);
+        ctx.closePath();
+      }
+    }
+
+    function drawBlock(context, x, y, type, isGhost = false, opacity = 1) {
+      if (!type || !PIECES[type]) return;
+      const color = PIECES[type].color;
+      const glow = PIECES[type].glow || color;
+      const pixelX = x * BLOCK_SIZE;
+      const pixelY = y * BLOCK_SIZE;
+      const bSize = BLOCK_SIZE - 2;
+      const bx = pixelX + 1;
+      const by = pixelY + 1;
+
+      context.save();
+      context.globalAlpha = opacity;
+
+      if (type === 'ZONE_STACK') {
+        context.shadowColor = '#fcf6bd';
+        context.shadowBlur = 10;
+
+        // Translucent Outer Wax Casing
+        context.fillStyle = 'rgba(252, 246, 189, 0.35)';
+        context.fillRect(bx, by, bSize, bSize);
+
+        // Submerged Core Golden Wax Block
+        const coreGrad = context.createLinearGradient(bx + 3, by + 3, bx + bSize - 3, by + bSize - 3);
+        coreGrad.addColorStop(0, '#ffffff');
+        coreGrad.addColorStop(0.4, '#fcf6bd');
+        coreGrad.addColorStop(1, '#ff99c8');
+        context.fillStyle = coreGrad;
+        context.fillRect(bx + 3, by + 3, bSize - 6, bSize - 6);
+
+        // Crisp Outer Wax Rim
+        context.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        context.lineWidth = 1;
+        context.strokeRect(bx + 0.5, by + 0.5, bSize - 1, bSize - 1);
+        context.restore();
+        return;
+      }
+
+      if (isGhost) {
+        context.shadowColor = glow;
+        context.shadowBlur = 4;
+        context.strokeStyle = color;
+        context.lineWidth = 1.5;
+        context.strokeRect(bx + 1.5, by + 1.5, bSize - 3, bSize - 3);
+        context.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        context.fillRect(bx + 1.5, by + 1.5, bSize - 3, bSize - 3);
+      } else {
+        context.shadowColor = glow;
+        context.shadowBlur = 6;
+
+        // 1. Outer Translucent Frosted Wax Casing (Straight Edges)
+        const outerGrad = context.createLinearGradient(bx, by, bx + bSize, by + bSize);
+        outerGrad.addColorStop(0, 'rgba(255, 255, 255, 0.38)');
+        outerGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.12)');
+        outerGrad.addColorStop(1, 'rgba(18, 14, 32, 0.28)');
+
+        context.fillStyle = outerGrad;
+        context.fillRect(bx, by, bSize, bSize);
+
+        // 2. Submerged Core Pastel Wax Block (Encased inside translucent wax)
+        const pad = 3.5;
+        const coreGrad = context.createLinearGradient(bx + pad, by + pad, bx + bSize - pad, by + bSize - pad);
+        coreGrad.addColorStop(0, '#ffffff');
+        coreGrad.addColorStop(0.35, color);
+        coreGrad.addColorStop(1, color);
+
+        context.fillStyle = coreGrad;
+        context.fillRect(bx + pad, by + pad, bSize - pad * 2, bSize - pad * 2);
+
+        // 3. Frosted Surface Accent (Top & Left Inner Bevels)
+        context.fillStyle = 'rgba(255, 255, 255, 0.32)';
+        context.fillRect(bx + 1, by + 1, bSize - 2, 2);
+        context.fillRect(bx + 1, by + 1, 2, bSize - 2);
+
+        // 4. Crisp Straight Outer Rim
+        context.strokeStyle = 'rgba(255, 255, 255, 0.58)';
+        context.lineWidth = 1;
+        context.strokeRect(bx + 0.5, by + 0.5, bSize - 1, bSize - 1);
+
+        // Submerged Core Border
+        context.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+        context.strokeRect(bx + pad, by + pad, bSize - pad * 2, bSize - pad * 2);
+      }
+      context.restore();
+    }
+
+    function drawBoard() {
+      ctx.save();
+
+      // Screen Shake translation
+      if (shakeIntensity > 0.1) {
+        const shakeX = (Math.random() - 0.5) * shakeIntensity;
+        const shakeY = (Math.random() - 0.5) * shakeIntensity;
+        ctx.translate(shakeX, shakeY);
+        shakeIntensity *= 0.84;
+      } else {
+        shakeIntensity = 0;
+      }
+
+      if (isZoneActive) {
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        bgGrad.addColorStop(0, '#26133a');
+        bgGrad.addColorStop(0.5, '#3b1c54');
+        bgGrad.addColorStop(1, '#1e0e2e');
+        ctx.fillStyle = bgGrad;
+      } else {
+        ctx.fillStyle = '#141122';
+      }
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = isZoneActive ? 'rgba(252, 246, 189, 0.12)' : 'rgba(216, 187, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let r = 0; r <= ROWS; r++) {
+        ctx.beginPath();
+        ctx.moveTo(0, r * BLOCK_SIZE);
+        ctx.lineTo(COLS * BLOCK_SIZE, r * BLOCK_SIZE);
+        ctx.stroke();
+      }
+      for (let c = 0; c <= COLS; c++) {
+        ctx.beginPath();
+        ctx.moveTo(c * BLOCK_SIZE, 0);
+        ctx.lineTo(c * BLOCK_SIZE, ROWS * BLOCK_SIZE);
+        ctx.stroke();
+      }
+
+      // Draw Stationary Grid
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          if (grid[r][c] !== 0) {
+            if (flashRows.includes(r)) {
+              ctx.save();
+              ctx.fillStyle = '#ffffff';
+              ctx.shadowColor = '#ff99c8';
+              ctx.shadowBlur = 22;
+              ctx.fillRect(c * BLOCK_SIZE + 1, r * BLOCK_SIZE + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+              ctx.restore();
+            } else {
+              drawBlock(ctx, c, r, grid[r][c]);
+            }
+          }
+        }
+      }
+
+      // Draw Ghost & Active Piece
+      if (currentPiece && !gameOver && flashRows.length === 0) {
+        const ghost = getGhostPosition();
+        if (ghost) {
+          const m = ghost.matrix;
+          for (let r = 0; r < m.length; r++) {
+            for (let c = 0; c < m[r].length; c++) {
+              if (m[r][c] !== 0 && ghost.y + r >= 0) {
+                drawBlock(ctx, ghost.x + c, ghost.y + r, ghost.type, true, 0.45);
+              }
+            }
+          }
+        }
+
+        const m = currentPiece.matrix;
+        for (let r = 0; r < m.length; r++) {
+          for (let c = 0; c < m[r].length; c++) {
+            if (m[r][c] !== 0 && currentPiece.y + r >= 0) {
+              drawBlock(ctx, currentPiece.x + c, currentPiece.y + r, currentPiece.type);
+            }
+          }
+        }
+      }
+
+      // Draw Zone Active Time Banner Bar
+      if (isZoneActive) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(28, 23, 44, 0.75)';
+        ctx.fillRect(10, 10, canvas.width - 20, 24);
+        ctx.strokeStyle = 'rgba(252, 246, 189, 0.8)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(10, 10, canvas.width - 20, 24);
+
+        const fillWidth = Math.max(0, (canvas.width - 24) * (zoneTimeRemaining / 8.0));
+        const timerGrad = ctx.createLinearGradient(12, 0, 12 + fillWidth, 0);
+        timerGrad.addColorStop(0, '#ff99c8');
+        timerGrad.addColorStop(1, '#fcf6bd');
+        ctx.fillStyle = timerGrad;
+        ctx.shadowColor = '#fcf6bd';
+        ctx.shadowBlur = 10;
+        ctx.fillRect(12, 12, fillWidth, 20);
+
+        ctx.font = '900 11px "Segoe UI", system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#1e1b2e';
+        ctx.fillText(`ZONE FREEZE: ${zoneTimeRemaining.toFixed(1)}s (${zoneStackedCount} STACKED)`, canvas.width / 2, 26);
+        ctx.restore();
+      }
+
+      // Draw Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        if (particles[i].life <= 0) {
+          particles.splice(i, 1);
+        } else {
+          particles[i].draw(ctx);
+        }
+      }
+
+      // Draw Text Popups
+      for (let i = textPopups.length - 1; i >= 0; i--) {
+        textPopups[i].update();
+        if (textPopups[i].life <= 0) {
+          textPopups.splice(i, 1);
+        } else {
+          textPopups[i].draw(ctx);
+        }
+      }
+
+      ctx.restore();
+    }
+
+    function drawMiniBlock(pCtx, px, py, size, color) {
+      pCtx.save();
+      const bSize = size - 2;
+      const bx = px + 1;
+      const by = py + 1;
+
+      // Outer Translucent Frosted Wax Shell
+      pCtx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+      pCtx.fillRect(bx, by, bSize, bSize);
+
+      // Encased Submerged Core Pastel Wax
+      const pad = 2.5;
+      const coreGrad = pCtx.createLinearGradient(bx + pad, by + pad, bx + bSize - pad, by + bSize - pad);
+      coreGrad.addColorStop(0, '#ffffff');
+      coreGrad.addColorStop(0.35, color);
+      coreGrad.addColorStop(1, color);
+
+      pCtx.fillStyle = coreGrad;
+      pCtx.fillRect(bx + pad, by + pad, bSize - pad * 2, bSize - pad * 2);
+
+      // Frosted top-left wax highlight
+      pCtx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+      pCtx.fillRect(bx + 1, by + 1, bSize - 2, 1.5);
+
+      pCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      pCtx.lineWidth = 0.8;
+      pCtx.strokeRect(bx + 0.5, by + 0.5, bSize - 1, bSize - 1);
+      pCtx.restore();
+    }
+
+    function drawPreviewPiece(pCtx, pCanvas, type) {
+      pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+      if (!type || !PIECES[type]) return;
+
+      const matrix = PIECES[type].matrix;
+      const size = matrix.length;
+      const miniBlockSize = 18;
+      const offsetX = (pCanvas.width - size * miniBlockSize) / 2;
+      const offsetY = (pCanvas.height - size * miniBlockSize) / 2;
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (matrix[r][c]) {
+            const px = offsetX + c * miniBlockSize;
+            const py = offsetY + r * miniBlockSize;
+            drawMiniBlock(pCtx, px, py, miniBlockSize, PIECES[type].color);
+          }
+        }
+      }
+    }
+
+    function drawPreviews() {
+      drawPreviewPiece(holdCtx, holdCanvas, holdPieceType);
+
+      nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+      const nextQueue = bag.peek(3);
+
+      nextQueue.forEach((type, idx) => {
+        const matrix = PIECES[type].matrix;
+        const size = matrix.length;
+        const miniBlockSize = 16;
+        const offsetX = (nextCanvas.width - size * miniBlockSize) / 2;
+        const offsetY = 12 + idx * 60;
+
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (matrix[r][c]) {
+              const px = offsetX + c * miniBlockSize;
+              const py = offsetY + r * miniBlockSize;
+              drawMiniBlock(nextCtx, px, py, miniBlockSize, PIECES[type].color);
+            }
+          }
+        }
+      });
+    }
+
+    // --- DAS / ARR Input Loop Handler ---
+    function updateInput(now) {
+      if (isPaused || gameOver || !isGameRunning) return;
+
+      // Left Movement
+      if (keysState['left'] && !keysState['right']) {
+        const k = keysState['left'];
+        if (!k.pressed) {
+          playerMove(-1);
+          k.pressed = true;
+          k.startTime = now;
+          k.nextRepeat = now + DAS_DELAY;
+        } else if (now >= k.nextRepeat) {
+          playerMove(-1);
+          k.nextRepeat = now + ARR_INTERVAL;
+        }
+      }
+
+      // Right Movement
+      if (keysState['right'] && !keysState['left']) {
+        const k = keysState['right'];
+        if (!k.pressed) {
+          playerMove(1);
+          k.pressed = true;
+          k.startTime = now;
+          k.nextRepeat = now + DAS_DELAY;
+        } else if (now >= k.nextRepeat) {
+          playerMove(1);
+          k.nextRepeat = now + ARR_INTERVAL;
+        }
+      }
+
+      // Soft Drop Movement
+      if (keysState['down']) {
+        const k = keysState['down'];
+        if (!k.pressed) {
+          playerSoftDrop();
+          k.pressed = true;
+          k.nextRepeat = now + ARR_INTERVAL;
+        } else if (now >= k.nextRepeat) {
+          playerSoftDrop();
+          k.nextRepeat = now + ARR_INTERVAL;
+        }
+      }
+    }
+
+    // --- Main Loop ---
+    function gameLoop(time = 0) {
+      if (!isGameRunning || isPaused) return;
+
+      const deltaTime = time - lastTime;
+      lastTime = time;
+
+      updateInput(time);
+
+      if (isZoneActive) {
+        zoneTimeRemaining -= deltaTime / 1000;
+        if (zoneTimeRemaining <= 0) {
+          zoneTimeRemaining = 0;
+          endZoneAndExplode();
+          return;
+        }
+      }
+
+      if (flashRows.length === 0) {
+        // Automatic Falling (Zero gravity during Zone Mode!)
+        if (!isZoneActive) {
+          dropCounter += deltaTime;
+          if (dropCounter > getDropInterval()) {
+            if (!isGrounded()) {
+              currentPiece.y++;
+            }
+            dropCounter = 0;
+          }
+        }
+
+        // Lock Delay Check
+        if (isGrounded()) {
+          if (lockTimer === null) {
+            lockTimer = time;
+          } else if (time - lockTimer >= LOCK_DELAY_MS) {
+            lockPiece();
+            lockTimer = null;
+          }
+        } else {
+          lockTimer = null;
+        }
+      }
+
+      drawBoard();
+      requestAnimationFrame(gameLoop);
+    }
+
+    // --- Event Listeners ---
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyR') {
+        e.preventDefault();
+        resetGame();
+        return;
+      }
+
+      if (gameOver && e.code === 'Space') {
+        resetGame();
+        return;
+      }
+
+      if (e.code === 'KeyP' || e.code === 'Escape') {
+        togglePause();
+        return;
+      }
+
+      if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+        activateZone();
+        return;
+      }
+
+      if (isPaused || gameOver) return;
+
+      switch (e.code) {
+        case 'ArrowLeft':
+        case 'KeyA':
+          if (!keysState['left']) keysState['left'] = { pressed: false };
+          break;
+        case 'ArrowRight':
+        case 'KeyD':
+          if (!keysState['right']) keysState['right'] = { pressed: false };
+          break;
+        case 'ArrowDown':
+        case 'KeyS':
+          if (!keysState['down']) keysState['down'] = { pressed: false };
+          break;
+        case 'ArrowUp':
+        case 'KeyX':
+        case 'KeyW':
+          playerRotate(1); // CW
+          break;
+        case 'KeyZ':
+          playerRotate(-1); // CCW
+          break;
+        case 'Space':
+          e.preventDefault();
+          playerHardDrop();
+          break;
+        case 'KeyC':
+        case 'ShiftLeft':
+        case 'ShiftRight':
+          playerHold();
+          break;
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      switch (e.code) {
+        case 'ArrowLeft':
+        case 'KeyA':
+          delete keysState['left'];
+          break;
+        case 'ArrowRight':
+        case 'KeyD':
+          delete keysState['right'];
+          break;
+        case 'ArrowDown':
+        case 'KeyS':
+          delete keysState['down'];
+          break;
+      }
+    });
+
+    // Touch Buttons & Zone Trigger
+    document.getElementById('tLeft').addEventListener('click', () => playerMove(-1));
+    document.getElementById('tRight').addEventListener('click', () => playerMove(1));
+    document.getElementById('tDown').addEventListener('click', () => playerSoftDrop());
+    document.getElementById('tRotCW').addEventListener('click', () => playerRotate(1));
+    document.getElementById('tRotCCW').addEventListener('click', () => playerRotate(-1));
+    document.getElementById('tHardDrop').addEventListener('click', () => playerHardDrop());
+    document.getElementById('tHold').addEventListener('click', () => playerHold());
+    document.getElementById('tPause').addEventListener('click', () => togglePause());
+
+    if (zoneTriggerBtn) zoneTriggerBtn.addEventListener('click', () => activateZone());
+    if (tZoneBtn) tZoneBtn.addEventListener('click', () => activateZone());
+
+    startBtn.addEventListener('click', () => {
+      if (isPaused) togglePause();
+      else resetGame();
+    });
+
+    soundToggle.addEventListener('click', () => {
+      const isEnabled = sound.toggleSound();
+      soundToggle.textContent = isEnabled ? '🔊' : '🔇';
+      soundToggle.title = isEnabled ? 'Sound & BGM: ON' : 'Sound & BGM: OFF';
+    });
+
+    // Initial Render
+    drawBoard();
+    drawPreviews();
+  </script>
+</body>
+</html>
